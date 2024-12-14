@@ -44,3 +44,7 @@ u32_backend = ["curve25519-dalek/u32_backend", "ed25519-dalek/u32_backend"]
 u64_backend = ["curve25519-dalek/u64_backend", "ed25519-dalek/u64_backend"]
 # The SIMD backend uses parallel formulas, using either AVX2 or AVX512-IFMA.
 simd_backend = ["curve25519-dalek/simd_backend", "ed25519-dalek/simd_backend"]
+
+[[example]]
+name = "frost_api_example"
+path = "examples/example.rs"
