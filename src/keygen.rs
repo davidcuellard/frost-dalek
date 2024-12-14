@@ -787,9 +787,9 @@ impl SecretKey {
     }
 
     /// Deserialize `SecretKey` from bytes (index and scalar key).
-    pub fn from_bytes(bytes: [u8; 32], index: u32) -> Result<Self, &'static str> {
-        let scalar = Scalar::from_canonical_bytes(bytes).ok_or("Invalid scalar bytes")?;
-        Ok(SecretKey { index, key: scalar })
+    pub fn from_bytes(index: u32, key_bytes: [u8; 32]) -> Result<Self, &'static str> {
+        let key = Scalar::from_canonical_bytes(key_bytes).ok_or("Invalid private key bytes")?;
+        Ok(Self { index, key })
     }
 }
 
@@ -1293,7 +1293,7 @@ fn test_secret_key_serialization() {
 
     // Serialize and deserialize
     let (key_bytes, index) = secret_key.to_bytes();
-    let deserialized = SecretKey::from_bytes(key_bytes, index).unwrap();
+    let deserialized = SecretKey::from_bytes(index, key_bytes).unwrap(); // Corrected order
 
     assert_eq!(secret_key.index, deserialized.index);
     assert_eq!(secret_key.key, deserialized.key);
