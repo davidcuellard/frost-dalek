@@ -791,6 +791,11 @@ impl SecretKey {
         let key = Scalar::from_canonical_bytes(key_bytes).ok_or("Invalid private key bytes")?;
         Ok(Self { index, key })
     }
+
+    /// Getter for the participant index.
+    pub fn get_index(&self) -> u32 {
+        self.index
+    }
 }
 
 impl From<&SecretKey> for IndividualPublicKey {
