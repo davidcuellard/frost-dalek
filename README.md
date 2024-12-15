@@ -50,6 +50,7 @@ Here’s a quick overview of the FROST signing process:
 3. Verification: Verify the produced signature using the group public key.
 
 ## Installation
+
 To include FROST-dalek in your Rust project, add it as a dependency in your Cargo.toml:
 
 ```toml
@@ -70,3 +71,20 @@ an RFC which, if/when adopted, will allow us to stabilise this codebase. Until
 then, the structure and construction of these signatures, as well as wireformats
 for several types which must be sent between signing parties, may change in
 incompatible ways.
+
+## Changes to `isislovecruft/frost-dalek`
+
+- Update README file
+
+- lint src/keygen.rs
+
+- The `SecretKey` struct has been modified to include serialization and deserialization support.
+
+  - The `index` and `key` fields are private (pub(crate)), preventing direct serialization or reconstruction outside the module.
+    The following methods have been added to facilitate serialization and deserialization:
+
+    - `to_bytes`: Serializes the `SecretKey` to bytes, returning a tuple containing the scalar key as bytes and the index.
+    - `from_bytes`: Deserializes the `SecretKey` from bytes, taking an index and scalar key bytes as input and returning a `Result` with the `SecretKey` or an error message.
+    - `get_index`: A getter method for retrieving the participant index.
+
+- Add examples/example.rs
